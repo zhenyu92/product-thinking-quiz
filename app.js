@@ -17,7 +17,7 @@ const BEST_KEY = "problemfirst.best.v1";
 const LETTERS = ["A", "B", "C", "D", "E", "F"];
 
 const PRAISE = ["Nice!", "Great job!", "Excellent!", "Nailed it!", "Spot on!", "Sharp thinking!"];
-const PRAISE_HOT = ["You're on fire!", "Unstoppable!", "Three in a row!", "Look at you go!"];
+const PRAISE_HOT = ["You're on fire!", "Unstoppable!", "On a roll!", "Look at you go!"];
 const CONSOLE_MSG = ["Almost there!", "Good try!", "Close one!", "Not quite - but now you know."];
 
 const app = document.getElementById("app");
@@ -638,22 +638,22 @@ function wire() {
   on("card-next", () => {
     if (S.cardIdx < CARDS.length - 1) { S.cardIdx += 1; S.screen = "learn"; }
     else { S.screen = "bridge"; }
-    render(); top();
+    render(); toTop();
   });
-  on("bridge-next", () => { S.screen = "question"; render(); top(); });
+  on("bridge-next", () => { S.screen = "question"; render(); toTop(); });
   on("hint", useHint);
   on("next", advance);
-  on("refill", () => { S.hearts = MAX_HEARTS; S.screen = "question"; render(); top(); });
+  on("refill", () => { S.hearts = MAX_HEARTS; S.screen = "question"; render(); toTop(); });
   on("stop", finish);
-  on("review", () => { S.screen = "review"; render(); top(); });
-  on("back", () => { S.screen = "results"; render(); top(); });
-  on("again", () => { buildDeck(); S.screen = "bridge"; S.i = 0; render(); top(); });
+  on("review", () => { S.screen = "review"; render(); toTop(); });
+  on("back", () => { S.screen = "results"; render(); toTop(); });
+  on("again", () => { buildDeck(); S.screen = "bridge"; S.i = 0; render(); toTop(); });
 
   app.querySelectorAll("[data-opt]").forEach((b) =>
     b.addEventListener("click", () => choose(Number(b.dataset.opt))));
 }
 
-const top = () => window.scrollTo({ top: 0, behavior: "smooth" });
+const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
 // A hint dims two wrong options and costs a slice of the reward.
 function hintDrops(q) {
@@ -723,7 +723,7 @@ function advance() {
     // Out of hearts pauses the lesson rather than ending it - the next question
     // is already queued up, so a refill drops straight back into it.
     S.screen = S.hearts <= 0 ? "paused" : (S.i === PRACTICE_N ? "bridge" : "question");
-    render(); top();
+    render(); toTop();
   };
 
   if (S.pending) {
@@ -739,7 +739,7 @@ function finish() {
   writeBest();
   S.screen = "results";
   render();
-  top();
+  toTop();
   if (tierFor(Math.round((S.correct / TOTAL_Q) * 100)).party) burst(120);
 }
 
