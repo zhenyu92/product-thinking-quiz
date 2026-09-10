@@ -655,11 +655,13 @@ function wire() {
 
 const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-// A hint dims two wrong options and costs a slice of the reward.
+// A hint dims two wrong options and costs a slice of the reward. The pair is
+// derived from the question so re-renders never reshuffle it - and it is always
+// exactly two, so the hint is worth the same wherever you spend it.
 function hintDrops(q) {
   const wrong = q.shownOptions.map((_, i) => i).filter((i) => i !== q.shownAnswer);
-  // deterministic per question so re-renders don't reshuffle the dimmed pair
-  return wrong.filter((i) => (i + q.q.length) % 3 !== 0).slice(0, 2);
+  const start = (q.q.length + q.shownAnswer) % wrong.length;
+  return [wrong[start], wrong[(start + 1) % wrong.length]];
 }
 
 function useHint() {
