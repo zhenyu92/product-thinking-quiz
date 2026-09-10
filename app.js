@@ -428,7 +428,7 @@ function bridgeScreen() {
       <div>
         <p class="kicker">${body.kicker}</p>
         <h2>${body.title}</h2>
-        <p class="lede">${body.line}</p>
+        <div class="speech">${body.line}</div>
       </div>
       <div class="actions" style="justify-content:center">
         <button class="btn go lg" id="bridge-next" data-autofocus>${body.cta}</button>

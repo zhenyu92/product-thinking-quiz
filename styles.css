@@ -104,7 +104,7 @@ a { color: var(--violet-dk); text-decoration-thickness: 2px; text-underline-offs
   overflow: hidden;
 }
 .track > i {
-  display: block; height: 100%; width: 0; border-radius: var(--r-pill);
+  display: block; position: relative; height: 100%; width: 0; border-radius: var(--r-pill);
   background: linear-gradient(90deg, var(--teal), var(--violet));
   transition: width 480ms cubic-bezier(.2, .9, .3, 1);
 }
@@ -258,7 +258,6 @@ h3 { font-size: 1.02rem; font-weight: 900; margin: 0 0 8px; }
 
 .opt.dim { opacity: .45; }
 
-.opt.hinted { border-color: #ffd694; background: #fffdf7; }
 .opt.hint-out { opacity: .3; text-decoration: line-through; text-decoration-color: var(--ink-faint); }
 
 @keyframes opt-yes {
@@ -290,7 +289,8 @@ h3 { font-size: 1.02rem; font-weight: 900; margin: 0 0 8px; }
 }
 
 .verdict { display: flex; align-items: center; gap: 12px; margin: 0 0 8px; }
-.verdict .face { flex: none; width: 46px; height: 46px; }
+.verdict .face { flex: none; display: block; width: 52px; }
+.verdict .face svg { width: 100%; height: auto; margin: 0; }
 .verdict .word { font-size: 1.3rem; font-weight: 900; letter-spacing: -.01em; }
 .sheet.good .word { color: var(--grass-dk); }
 .sheet.bad  .word { color: var(--coral-dk); }
